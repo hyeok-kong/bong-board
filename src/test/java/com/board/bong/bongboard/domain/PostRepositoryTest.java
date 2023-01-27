@@ -35,9 +35,7 @@ public class PostRepositoryTest {
         postsRepository.save(Posts.builder()
                 .title(title)
                 .content(content)
-                .author("테스트 사용자")
-                .build()
-        );
+                .build());
 
         //when
         List<Posts> postsList = postsRepository.findAll();
@@ -46,7 +44,7 @@ public class PostRepositoryTest {
         Posts posts = postsList.get(0);
         assertThat(posts.getTitle()).isEqualTo(title);
         assertThat(posts.getContent()).isEqualTo(content);
-        assertThat(posts.getCount()).isEqualTo(0);
+        assertThat(posts.getViewCount()).isEqualTo(0);
     }
 
     @Test
@@ -56,7 +54,6 @@ public class PostRepositoryTest {
         postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .author("author")
                 .build());
 
         //when

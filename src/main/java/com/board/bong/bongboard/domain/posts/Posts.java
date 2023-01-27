@@ -1,7 +1,7 @@
 package com.board.bong.bongboard.domain.posts;
 
 import com.board.bong.bongboard.domain.BaseTimeEntity;
-import com.board.bong.bongboard.web.dto.PostsUpdateRequestDto;
+import com.board.bong.bongboard.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,21 +25,20 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private String author;
+    @ManyToOne
+    private User user;
 
     @ColumnDefault("0")
-    private Integer count;
+    private Long viewCount;
 
     @Builder
-    public Posts(String title, String content, String author) {
+    public Posts(String title, String content) {
         this.title = title;
         this.content = content;
-        this.author = author;
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
-
 }

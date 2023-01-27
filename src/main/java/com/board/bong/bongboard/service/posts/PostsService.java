@@ -2,9 +2,9 @@ package com.board.bong.bongboard.service.posts;
 
 import com.board.bong.bongboard.domain.posts.Posts;
 import com.board.bong.bongboard.domain.posts.PostsRepository;
-import com.board.bong.bongboard.web.dto.PostsResponseDto;
-import com.board.bong.bongboard.web.dto.PostsSaveRequestDto;
-import com.board.bong.bongboard.web.dto.PostsUpdateRequestDto;
+import com.board.bong.bongboard.web.dto.posts.PostsResponseDto;
+import com.board.bong.bongboard.web.dto.posts.PostsSaveRequestDto;
+import com.board.bong.bongboard.web.dto.posts.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +34,18 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 
         return new PostsResponseDto(posts);
+    }
+
+    public Long increaseViewCount(Long id) {
+        return postsRepository.increaseViewCount(id);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        postsRepository.delete(posts);
     }
 
 }

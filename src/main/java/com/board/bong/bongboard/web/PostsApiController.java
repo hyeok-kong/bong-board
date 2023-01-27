@@ -1,9 +1,9 @@
 package com.board.bong.bongboard.web;
 
 import com.board.bong.bongboard.service.posts.PostsService;
-import com.board.bong.bongboard.web.dto.PostsResponseDto;
-import com.board.bong.bongboard.web.dto.PostsSaveRequestDto;
-import com.board.bong.bongboard.web.dto.PostsUpdateRequestDto;
+import com.board.bong.bongboard.web.dto.posts.PostsResponseDto;
+import com.board.bong.bongboard.web.dto.posts.PostsSaveRequestDto;
+import com.board.bong.bongboard.web.dto.posts.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,15 @@ public class PostsApiController {
 
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id) {
+        postsService.increaseViewCount(id);
+
         return postsService.findById(id);
+    }
+
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+
+        return id;
     }
 }

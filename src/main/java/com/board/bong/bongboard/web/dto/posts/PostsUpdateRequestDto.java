@@ -1,4 +1,4 @@
-package com.board.bong.bongboard.web.dto;
+package com.board.bong.bongboard.web.dto.posts;
 
 import lombok.Builder;
 import lombok.Getter;

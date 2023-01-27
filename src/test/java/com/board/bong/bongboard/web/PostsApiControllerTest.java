@@ -2,8 +2,8 @@ package com.board.bong.bongboard.web;
 
 import com.board.bong.bongboard.domain.posts.Posts;
 import com.board.bong.bongboard.domain.posts.PostsRepository;
-import com.board.bong.bongboard.web.dto.PostsSaveRequestDto;
-import com.board.bong.bongboard.web.dto.PostsUpdateRequestDto;
+import com.board.bong.bongboard.web.dto.posts.PostsSaveRequestDto;
+import com.board.bong.bongboard.web.dto.posts.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +47,7 @@ public class PostsApiControllerTest {
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("author")
+                .user("user")
                 .build();
         String url = "http://localhost:" + port + "/api/v1/posts";
 
@@ -62,16 +62,16 @@ public class PostsApiControllerTest {
         Posts posts = postsList.get(0);
         assertThat(posts.getTitle()).isEqualTo(title);
         assertThat(posts.getContent()).isEqualTo(content);
-        assertThat(posts.getCount()).isEqualTo(0);
+        assertThat(posts.getViewCount()).isEqualTo(0);
     }
 
 
     @Test
     public void update_posts() throws Exception {
+
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .author("author")
                 .build());
 
         Long updateId = savedPosts.getId();
